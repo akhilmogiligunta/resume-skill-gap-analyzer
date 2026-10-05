@@ -1,485 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Analysis Results - Resume Skill Gap Analyzer</title>
+    <title>Analysis Results | Resume Skill Gap Analyzer</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
 
 <body>
 
-<div class="container">
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
 
-    <!-- HEADER -->
+            <a href="/" class="brand">
+                <div class="brand-icon">RS</div>
 
-    <header class="hero">
+                <div>
+                    <div class="brand-name">Resume Skill Gap</div>
+                    <div class="brand-subtitle">ML Analyzer</div>
+                </div>
+            </a>
 
-        <div class="hero-badge">
-            ANALYSIS COMPLETE
+            <div class="nav-actions">
+
+                <a href="/" class="new-analysis-button">
+                    + New Analysis
+                </a>
+
+                <button
+                    type="button"
+                    id="themeToggle"
+                    class="theme-toggle"
+                    aria-label="Toggle dark mode"
+                    title="Toggle dark mode"
+                >
+                    <span id="themeIcon">🌙</span>
+                </button>
+
+            </div>
+
         </div>
-
-        <h1>Resume Analysis Results</h1>
-
-        <p>
-            Here's how your resume compares with the selected job description.
-        </p>
-
     </header>
 
 
-    <!-- MAIN METRICS -->
+    <!-- Main -->
+    <main class="results-page">
 
-    <section class="results-grid">
+        <section class="results-hero">
 
-        <!-- COVERAGE -->
+            <div class="results-container">
 
-        <div class="result-card">
-
-            <h3>Required Skill Coverage</h3>
-
-            {% if results.required_skill_coverage is not none %}
-
-                <div class="metric">
-                    {{ "%.1f"|format(results.required_skill_coverage) }}%
+                <div class="hero-badge">
+                    <span class="status-dot"></span>
+                    Analysis Complete
                 </div>
 
-                <div class="progress-bar">
+                <h1>
+                    Resume Analysis
+                    <span>Results</span>
+                </h1>
 
-                    <div
-                        class="progress-fill coverage-fill"
-                        style="width: {{ results.required_skill_coverage }}%;">
+                <p>
+                    Here's how your resume compares with the selected
+                    job description.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="results-content">
+
+            <div class="results-container">
+
+
+                <!-- SCORE CARDS -->
+                <div class="score-grid">
+
+                    <!-- Required Skill Coverage -->
+                    <div class="score-card">
+
+                        <div class="score-card-header">
+                            <div>
+                                <span class="score-label">
+                                    REQUIRED SKILL COVERAGE
+                                </span>
+
+                                <h2>
+                                    {% if results.required_skill_coverage is not none %}
+                                        {{ "%.1f"|format(results.required_skill_coverage) }}%
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </h2>
+                            </div>
+
+                            <div class="score-icon">
+                                ✓
+                            </div>
+                        </div>
+
+                        {% if results.required_skill_coverage is not none %}
+                        <div class="progress-track">
+                            <div
+                                class="progress-fill"
+                                style="width: {{ results.required_skill_coverage }}%;"
+                            ></div>
+                        </div>
+                        {% endif %}
+
+                        <p>
+                            {{ results.matched_required_skills }}
+                            of
+                            {{ results.total_required_skills }}
+                            recognized required skills matched.
+                        </p>
+
+                    </div>
+
+
+                    <!-- TF-IDF Similarity -->
+                    <div class="score-card">
+
+                        <div class="score-card-header">
+                            <div>
+                                <span class="score-label">
+                                    TF-IDF COSINE SIMILARITY
+                                </span>
+
+                                <h2>
+                                    {{ "%.1f"|format(results.cosine_similarity_percentage) }}%
+                                </h2>
+                            </div>
+
+                            <div class="score-icon similarity-icon">
+                                ≈
+                            </div>
+                        </div>
+
+                        <div class="progress-track">
+                            <div
+                                class="progress-fill similarity-fill"
+                                style="width: {{ results.cosine_similarity_percentage }}%;"
+                            ></div>
+                        </div>
+
+                        <p>
+                            Measures textual similarity between the
+                            resume and job description.
+                        </p>
+
                     </div>
 
                 </div>
 
-                <p>
-                    {{ results.matched_required_skills }}
-                    of
-                    {{ results.total_required_skills }}
-                    recognized required skills matched.
-                </p>
 
-            {% else %}
+                <!-- INTERPRETATION -->
+                <section class="interpretation-card">
 
-                <div class="metric">
-                    N/A
+                    <div class="section-label">
+                        HOW TO INTERPRET THESE RESULTS
+                    </div>
+
+                    <h2>
+                        Two different measurements, two different meanings
+                    </h2>
+
+                    <div class="interpretation-grid">
+
+                        <div class="interpretation-item">
+
+                            <div class="interpretation-number">
+                                01
+                            </div>
+
+                            <div>
+                                <h3>Required Skill Coverage</h3>
+
+                                <p>
+                                    Shows how many recognized skills required
+                                    by the job description are present in
+                                    the resume.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="interpretation-item">
+
+                            <div class="interpretation-number">
+                                02
+                            </div>
+
+                            <div>
+                                <h3>TF-IDF Cosine Similarity</h3>
+
+                                <p>
+                                    Measures similarity between the overall
+                                    resume text and job-description text.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="important-note">
+                        <strong>Important:</strong>
+                        These are separate measurements and do not represent
+                        hiring probability, selection probability, or
+                        hiring success.
+                    </div>
+
+                </section>
+
+
+                <!-- SKILL COMPARISON -->
+                <section class="skills-section">
+
+                    <div class="section-heading">
+                        <span>SKILL ANALYSIS</span>
+
+                        <h2>Skill Comparison</h2>
+
+                        <p>
+                            Skills identified from your resume and the
+                            job description.
+                        </p>
+                    </div>
+
+
+                    <div class="skill-grid">
+
+
+                        <!-- MATCHED -->
+                        <div class="skill-card matched-card">
+
+                            <div class="skill-card-header">
+
+                                <div class="skill-card-title">
+                                    <span class="skill-status matched-status">
+                                        ✓
+                                    </span>
+
+                                    <div>
+                                        <h3>Matched Skills</h3>
+
+                                        <p>
+                                            Skills already present in your
+                                            resume.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <span class="skill-count">
+                                    {{ results.matched_skills|length }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="skill-list">
+
+                                {% if results.matched_skills %}
+
+                                    {% for skill in results.matched_skills %}
+                                        <span class="skill-tag matched-tag">
+                                            {{ skill }}
+                                        </span>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <p class="empty-skill">
+                                        No matching skills identified.
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MISSING -->
+                        <div class="skill-card missing-card">
+
+                            <div class="skill-card-header">
+
+                                <div class="skill-card-title">
+                                    <span class="skill-status missing-status">
+                                        !
+                                    </span>
+
+                                    <div>
+                                        <h3>Missing Skills</h3>
+
+                                        <p>
+                                            Required skills not found in
+                                            your resume.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <span class="skill-count">
+                                    {{ results.missing_skills|length }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="skill-list">
+
+                                {% if results.missing_skills %}
+
+                                    {% for skill in results.missing_skills %}
+                                        <span class="skill-tag missing-tag">
+                                            {{ skill }}
+                                        </span>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <p class="empty-skill">
+                                        No missing skills identified.
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ADDITIONAL -->
+                        <div class="skill-card additional-card">
+
+                            <div class="skill-card-header">
+
+                                <div class="skill-card-title">
+                                    <span class="skill-status additional-status">
+                                        +
+                                    </span>
+
+                                    <div>
+                                        <h3>Additional Skills</h3>
+
+                                        <p>
+                                            Skills in your resume that were
+                                            not required by this job.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <span class="skill-count">
+                                    {{ results.additional_skills|length }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="skill-list">
+
+                                {% if results.additional_skills %}
+
+                                    {% for skill in results.additional_skills %}
+                                        <span class="skill-tag additional-tag">
+                                            {{ skill }}
+                                        </span>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <p class="empty-skill">
+                                        No additional skills identified.
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RECOMMENDATIONS -->
+                {% if recommendations %}
+
+                <section class="recommendations-section">
+
+                    <div class="section-heading">
+                        <span>LEARNING ROADMAP</span>
+
+                        <h2>Recommended Next Steps</h2>
+
+                        <p>
+                            Focus on the missing skills below to strengthen
+                            your alignment with the target role.
+                        </p>
+                    </div>
+
+
+                    <div class="recommendation-list">
+
+                        {% for recommendation in recommendations %}
+
+                        <div class="recommendation-card">
+
+                            <div class="recommendation-number">
+                                {{ "%02d"|format(loop.index) }}
+                            </div>
+
+                            <div>
+                                <h3>
+                                    {{ recommendation }}
+                                </h3>
+
+                                <p>
+                                    Consider learning and practicing this
+                                    skill through projects, documentation,
+                                    and hands-on exercises.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- ACTION -->
+                <div class="results-action">
+
+                    <a href="/" class="analyze-button">
+                        <span class="button-icon">↗</span>
+                        Analyze Another Resume
+                    </a>
+
+                    <p>
+                        Upload another resume or compare this resume with
+                        a different job description.
+                    </p>
+
                 </div>
 
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+                <strong>Resume Skill Gap Analyzer</strong>
+
                 <p>
-                    No recognized required skills were found
-                    in the job description.
+                    Machine learning based resume analysis.
                 </p>
-
-            {% endif %}
-
-        </div>
-
-
-        <!-- SIMILARITY -->
-
-        <div class="result-card">
-
-            <h3>TF-IDF Cosine Similarity</h3>
-
-            <div class="metric">
-                {{ "%.1f"|format(results.cosine_similarity_percentage) }}%
             </div>
 
-            <div class="progress-bar">
-
-                <div
-                    class="progress-fill similarity-fill"
-                    style="width: {{ results.cosine_similarity_percentage }}%;">
-                </div>
-
-            </div>
-
-            <p>
-                Measures textual similarity between the
-                resume and job description.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- IMPORTANT NOTE -->
-
-    <section class="card metric-note">
-
-        <h2>How to Interpret These Results</h2>
-
-        <p>
-            <strong>Required Skill Coverage</strong>
-            shows how many recognized skills required by the
-            job description are present in the resume.
-        </p>
-
-        <p>
-            <strong>TF-IDF Cosine Similarity</strong>
-            measures similarity between the overall resume
-            text and job-description text.
-        </p>
-
-        <p>
-            These are separate measurements and
-            <strong>do not represent hiring probability,
-            selection probability, or hiring success.</strong>
-        </p>
-
-    </section>
-
-
-
-    <!-- SKILL COMPARISON -->
-
-    <section class="card">
-
-        <h2>Skill Comparison</h2>
-
-        <p class="description">
-            Skills identified from your resume and the job description.
-        </p>
-
-
-        <div class="skill-columns">
-
-
-            <!-- MATCHED -->
-
-            <div class="skill-box matched">
-
-                <h3>✓ Matched Skills</h3>
-
-                {% if results.matched_skills %}
-
-                    <ul>
-
-                        {% for skill in results.matched_skills %}
-
-                            <li>{{ skill }}</li>
-
-                        {% endfor %}
-
-                    </ul>
-
-                {% else %}
-
-                    <p>No matched skills found.</p>
-
-                {% endif %}
-
-            </div>
-
-
-
-            <!-- MISSING -->
-
-            <div class="skill-box missing">
-
-                <h3>✗ Missing Skills</h3>
-
-                {% if results.missing_skills %}
-
-                    <ul>
-
-                        {% for skill in results.missing_skills %}
-
-                            <li>{{ skill }}</li>
-
-                        {% endfor %}
-
-                    </ul>
-
-                {% else %}
-
-                    <p>No missing skills found.</p>
-
-                {% endif %}
-
-            </div>
-
-
-
-            <!-- ADDITIONAL -->
-
-            <div class="skill-box additional">
-
-                <h3>+ Additional Skills</h3>
-
-                {% if results.additional_skills %}
-
-                    <ul>
-
-                        {% for skill in results.additional_skills %}
-
-                            <li>{{ skill }}</li>
-
-                        {% endfor %}
-
-                    </ul>
-
-                {% else %}
-
-                    <p>No additional skills found.</p>
-
-                {% endif %}
-
+            <div>
+                <p>
+                    Built for academic and learning purposes.
+                </p>
             </div>
 
         </div>
 
-    </section>
+    </footer>
 
 
-
-    <!-- CATEGORY ANALYSIS -->
-
-    <section class="card">
-
-        <h2>Skills by Category</h2>
-
-        <p class="description">
-            A category-wise view of the identified skills.
-        </p>
-
-
-        <div class="category-grid">
-
-
-            <!-- MATCHED CATEGORIES -->
-
-            <div class="category-section">
-
-                <h3>Matched</h3>
-
-                {% if results.matched_by_category %}
-
-                    {% for category, skills in results.matched_by_category.items() %}
-
-                        <div class="category-group">
-
-                            <h4>{{ category }}</h4>
-
-                            <ul>
-
-                                {% for skill in skills %}
-
-                                    <li>{{ skill }}</li>
-
-                                {% endfor %}
-
-                            </ul>
-
-                        </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                    <p>No matched skills.</p>
-
-                {% endif %}
-
-            </div>
-
-
-
-            <!-- MISSING CATEGORIES -->
-
-            <div class="category-section">
-
-                <h3>Missing</h3>
-
-                {% if results.missing_by_category %}
-
-                    {% for category, skills in results.missing_by_category.items() %}
-
-                        <div class="category-group">
-
-                            <h4>{{ category }}</h4>
-
-                            <ul>
-
-                                {% for skill in skills %}
-
-                                    <li>{{ skill }}</li>
-
-                                {% endfor %}
-
-                            </ul>
-
-                        </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                    <p>No missing skills.</p>
-
-                {% endif %}
-
-            </div>
-
-
-
-            <!-- ADDITIONAL CATEGORIES -->
-
-            <div class="category-section">
-
-                <h3>Additional</h3>
-
-                {% if results.additional_by_category %}
-
-                    {% for category, skills in results.additional_by_category.items() %}
-
-                        <div class="category-group">
-
-                            <h4>{{ category }}</h4>
-
-                            <ul>
-
-                                {% for skill in skills %}
-
-                                    <li>{{ skill }}</li>
-
-                                {% endfor %}
-
-                            </ul>
-
-                        </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                    <p>No additional skills.</p>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- RECOMMENDATIONS -->
-
-    <section class="card">
-
-        <h2>Learning Recommendations</h2>
-
-        <p class="description">
-            Suggestions based on the skills missing from the job requirements.
-        </p>
-
-        {% if recommendations %}
-
-            <ul class="recommendation-list">
-
-                {% for recommendation in recommendations %}
-
-                    <li>{{ recommendation }}</li>
-
-                {% endfor %}
-
-            </ul>
-
-        {% else %}
-
-            <p>
-                No additional recommendations at this time.
-            </p>
-
-        {% endif %}
-
-    </section>
-
-
-
-    <!-- PIPELINE -->
-
-    <section class="card">
-
-        <h2>Analysis Pipeline</h2>
-
-        <div class="steps">
-
-            <div class="step">
-
-                <div class="step-icon">01</div>
-
-                <h3>Preprocess</h3>
-
-                <p>
-                    Resume and job-description text is normalized.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-icon">02</div>
-
-                <h3>Extract Skills</h3>
-
-                <p>
-                    Technical skills and aliases are identified.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-icon">03</div>
-
-                <h3>Compare</h3>
-
-                <p>
-                    Required, matched and additional skills are calculated.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-icon">04</div>
-
-                <h3>Similarity</h3>
-
-                <p>
-                    TF-IDF and cosine similarity measure textual similarity.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ACTION -->
-
-    <a href="/" class="back-button">
-        ← Analyze Another Resume
-    </a>
-
-
-</div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
-
 </html>

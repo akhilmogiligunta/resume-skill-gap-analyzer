@@ -1,263 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Resume Skill Gap Analyzer</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
 
 <body>
 
-<div class="container">
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
 
-    <!-- HEADER -->
-    <header class="hero">
+            <a href="/" class="brand">
+                <div class="brand-icon">RS</div>
 
-        <div class="hero-badge">
-            MACHINE LEARNING • NLP
+                <div>
+                    <div class="brand-name">Resume Skill Gap</div>
+                    <div class="brand-subtitle">ML Analyzer</div>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <button
+                    type="button"
+                    id="themeToggle"
+                    class="theme-toggle"
+                    aria-label="Toggle dark mode"
+                    title="Toggle dark mode"
+                >
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+
         </div>
-
-        <h1>Resume Skill Gap Analyzer</h1>
-
-        <p>
-            Analyze your resume against a job description,
-            discover your skill gaps, and identify areas for improvement.
-        </p>
-
     </header>
 
 
-    <!-- ERROR -->
-    {% if error %}
+    <!-- Main Content -->
+    <main>
 
-    <div class="error-message">
-        {{ error }}
-    </div>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
 
-    {% endif %}
-
-
-    <!-- ANALYZER -->
-    <form action="/"
-          method="POST"
-          enctype="multipart/form-data"
-          class="analyzer-form">
-
-
-        <!-- RESUME -->
-        <section class="card">
-
-            <div class="section-heading">
-
-                <div class="step-number">01</div>
-
-                <div>
-                    <h2>Upload Your Resume</h2>
-
-                    <p class="description">
-                        Upload a PDF/DOCX resume or enter the text manually.
-                    </p>
+                <div class="hero-badge">
+                    <span class="status-dot"></span>
+                    Machine Learning Powered
                 </div>
 
+                <h1>
+                    Discover the skills<br>
+                    <span>your career is missing.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Compare your resume with a job description using
+                    NLP, skill extraction, TF-IDF, and similarity analysis.
+                </p>
+
             </div>
-
-
-            <label for="resume_file">
-                Resume File
-            </label>
-
-            <input
-                type="file"
-                id="resume_file"
-                name="resume_file"
-                accept=".pdf,.docx"
-            >
-
-
-            <div class="file-note">
-                Supported formats: PDF, DOCX • Maximum size: 5 MB
-            </div>
-
-
-            <div class="divider">
-                <span>OR</span>
-            </div>
-
-
-            <label for="resume_text">
-                Enter Resume Text
-            </label>
-
-            <textarea
-                id="resume_text"
-                name="resume_text"
-                rows="10"
-                placeholder="Paste your resume content here..."
-            >{{ resume_text or "" }}</textarea>
-
         </section>
 
 
+        <!-- Analyzer -->
+        <section class="analyzer-section">
 
-        <!-- JOB DESCRIPTION -->
-        <section class="card">
+            <div class="analyzer-container">
 
-            <div class="section-heading">
-
-                <div class="step-number">02</div>
-
-                <div>
-                    <h2>Job Description</h2>
-
-                    <p class="description">
-                        Paste the job description you want to analyze.
-                    </p>
+                {% if error %}
+                <div class="alert alert-error">
+                    <span class="alert-icon">!</span>
+                    <div>
+                        <strong>Analysis could not be completed</strong>
+                        <p>{{ error }}</p>
+                    </div>
                 </div>
+                {% endif %}
+
+
+                <form
+                    action="/"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    id="analyzerForm"
+                >
+
+                    <!-- Resume Card -->
+                    <div class="input-card">
+
+                        <div class="card-header">
+                            <div class="step-number">01</div>
+
+                            <div>
+                                <h2>Upload your resume</h2>
+                                <p>
+                                    Upload a PDF or DOCX file, or enter your
+                                    resume text manually.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="upload-area" id="uploadArea">
+
+                            <div class="upload-icon">
+                                📄
+                            </div>
+
+                            <h3>Drop your resume here</h3>
+
+                            <p>
+                                PDF or DOCX · Maximum 5 MB
+                            </p>
+
+                            <label for="resumeFile" class="browse-button">
+                                Browse Files
+                            </label>
+
+                            <input
+                                type="file"
+                                id="resumeFile"
+                                name="resume_file"
+                                accept=".pdf,.docx"
+                                hidden
+                            >
+
+                            <div
+                                id="selectedFile"
+                                class="selected-file"
+                            ></div>
+
+                        </div>
+
+
+                        <div class="divider">
+                            <span>OR</span>
+                        </div>
+
+
+                        <label for="resumeText" class="field-label">
+                            Enter resume text manually
+                        </label>
+
+                        <textarea
+                            id="resumeText"
+                            name="resume_text"
+                            rows="7"
+                            placeholder="Paste your resume content here..."
+                        >{{ resume_text or "" }}</textarea>
+
+                    </div>
+
+
+                    <!-- Job Description Card -->
+                    <div class="input-card">
+
+                        <div class="card-header">
+                            <div class="step-number">02</div>
+
+                            <div>
+                                <h2>Job description</h2>
+                                <p>
+                                    Paste the job description you want to
+                                    compare against your resume.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <label for="jobDescription" class="field-label">
+                            Target job description
+                        </label>
+
+                        <textarea
+                            id="jobDescription"
+                            name="job_description"
+                            rows="10"
+                            placeholder="Paste the job description here..."
+                            required
+                        >{{ job_description or "" }}</textarea>
+
+                    </div>
+
+
+                    <!-- Analyze Button -->
+                    <div class="analyze-wrapper">
+
+                        <button
+                            type="submit"
+                            class="analyze-button"
+                            id="analyzeButton"
+                        >
+                            <span class="button-icon">↗</span>
+                            Analyze Skill Gap
+                        </button>
+
+                        <p class="privacy-note">
+                            Your resume is processed locally and temporary
+                            uploaded files are removed after analysis.
+                        </p>
+
+                    </div>
+
+                </form>
+
+
+                <!-- How It Works -->
+                <section class="how-section">
+
+                    <div class="section-heading">
+                        <span>HOW IT WORKS</span>
+                        <h2>From resume to actionable insights</h2>
+                    </div>
+
+
+                    <div class="pipeline">
+
+                        <div class="pipeline-card">
+                            <div class="pipeline-number">01</div>
+                            <div class="pipeline-icon">📄</div>
+                            <h3>Parse</h3>
+                            <p>
+                                Extract readable text from your resume.
+                            </p>
+                        </div>
+
+
+                        <div class="pipeline-arrow">→</div>
+
+
+                        <div class="pipeline-card">
+                            <div class="pipeline-number">02</div>
+                            <div class="pipeline-icon">⚙️</div>
+                            <h3>Process</h3>
+                            <p>
+                                Clean and normalize the extracted text.
+                            </p>
+                        </div>
+
+
+                        <div class="pipeline-arrow">→</div>
+
+
+                        <div class="pipeline-card">
+                            <div class="pipeline-number">03</div>
+                            <div class="pipeline-icon">🔍</div>
+                            <h3>Compare</h3>
+                            <p>
+                                Identify matching and missing skills.
+                            </p>
+                        </div>
+
+
+                        <div class="pipeline-arrow">→</div>
+
+
+                        <div class="pipeline-card">
+                            <div class="pipeline-number">04</div>
+                            <div class="pipeline-icon">📊</div>
+                            <h3>Recommend</h3>
+                            <p>
+                                Generate useful learning recommendations.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Technology -->
+                <section class="technology-section">
+
+                    <p>BUILT WITH</p>
+
+                    <div class="technology-list">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>scikit-learn</span>
+                        <span>NLP</span>
+                        <span>TF-IDF</span>
+                    </div>
+
+                </section>
 
             </div>
-
-
-            <label for="job_description">
-                Job Description
-            </label>
-
-            <textarea
-                id="job_description"
-                name="job_description"
-                rows="12"
-                placeholder="Paste the job description here..."
-            >{{ job_description or "" }}</textarea>
 
         </section>
 
+    </main>
 
 
-        <!-- BUTTON -->
-        <button
-            type="submit"
-            class="analyze-button"
-        >
-            Analyze Resume
-            <span>→</span>
-        </button>
+    <!-- Footer -->
+    <footer class="footer">
 
-    </form>
+        <div class="footer-container">
 
-
-
-    <!-- HOW IT WORKS -->
-    <section class="info-section">
-
-        <h2>How It Works</h2>
-
-        <p class="section-subtitle">
-            Your resume goes through a simple machine-learning pipeline.
-        </p>
-
-
-        <div class="steps">
-
-
-            <div class="step">
-
-                <div class="step-icon">
-                    01
-                </div>
-
-                <h3>Extract</h3>
-
+            <div>
+                <strong>Resume Skill Gap Analyzer</strong>
                 <p>
-                    Resume text is extracted from PDF or DOCX files.
+                    Machine learning based resume analysis.
                 </p>
-
             </div>
 
-
-
-            <div class="step">
-
-                <div class="step-icon">
-                    02
-                </div>
-
-                <h3>Identify Skills</h3>
-
-                <p>
-                    Technical skills are detected using a configurable
-                    skill dictionary and aliases.
-                </p>
-
-            </div>
-
-
-
-            <div class="step">
-
-                <div class="step-icon">
-                    03
-                </div>
-
-                <h3>Compare</h3>
-
-                <p>
-                    Resume skills are compared with the required
-                    skills in the job description.
-                </p>
-
-            </div>
-
-
-
-            <div class="step">
-
-                <div class="step-icon">
-                    04
-                </div>
-
-                <h3>Recommend</h3>
-
-                <p>
-                    Missing skills are converted into learning
-                    recommendations.
-                </p>
-
+            <div>
+                <p>Built for academic and learning purposes.</p>
             </div>
 
         </div>
 
-    </section>
+    </footer>
 
 
-
-    <!-- TECHNOLOGY -->
-    <section class="technology">
-
-        <h2>Technology Used</h2>
-
-        <div class="technology-list">
-
-            <span>Python</span>
-            <span>Flask</span>
-            <span>Scikit-learn</span>
-            <span>TF-IDF</span>
-            <span>Cosine Similarity</span>
-            <span>NLP</span>
-
-        </div>
-
-    </section>
-
-
-</div>
-
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
-
 </html>
