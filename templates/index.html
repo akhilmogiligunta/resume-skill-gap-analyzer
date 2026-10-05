@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Skill Gap Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="hero">
+
+        <div class="hero-badge">
+            MACHINE LEARNING • NLP
+        </div>
+
+        <h1>Resume Skill Gap Analyzer</h1>
+
+        <p>
+            Analyze your resume against a job description,
+            discover your skill gaps, and identify areas for improvement.
+        </p>
+
+    </header>
+
+
+    <!-- ERROR -->
+    {% if error %}
+
+    <div class="error-message">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <!-- ANALYZER -->
+    <form action="/"
+          method="POST"
+          enctype="multipart/form-data"
+          class="analyzer-form">
+
+
+        <!-- RESUME -->
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div class="step-number">01</div>
+
+                <div>
+                    <h2>Upload Your Resume</h2>
+
+                    <p class="description">
+                        Upload a PDF/DOCX resume or enter the text manually.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <label for="resume_file">
+                Resume File
+            </label>
+
+            <input
+                type="file"
+                id="resume_file"
+                name="resume_file"
+                accept=".pdf,.docx"
+            >
+
+
+            <div class="file-note">
+                Supported formats: PDF, DOCX • Maximum size: 5 MB
+            </div>
+
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+
+            <label for="resume_text">
+                Enter Resume Text
+            </label>
+
+            <textarea
+                id="resume_text"
+                name="resume_text"
+                rows="10"
+                placeholder="Paste your resume content here..."
+            >{{ resume_text or "" }}</textarea>
+
+        </section>
+
+
+
+        <!-- JOB DESCRIPTION -->
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div class="step-number">02</div>
+
+                <div>
+                    <h2>Job Description</h2>
+
+                    <p class="description">
+                        Paste the job description you want to analyze.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <label for="job_description">
+                Job Description
+            </label>
+
+            <textarea
+                id="job_description"
+                name="job_description"
+                rows="12"
+                placeholder="Paste the job description here..."
+            >{{ job_description or "" }}</textarea>
+
+        </section>
+
+
+
+        <!-- BUTTON -->
+        <button
+            type="submit"
+            class="analyze-button"
+        >
+            Analyze Resume
+            <span>→</span>
+        </button>
+
+    </form>
+
+
+
+    <!-- HOW IT WORKS -->
+    <section class="info-section">
+
+        <h2>How It Works</h2>
+
+        <p class="section-subtitle">
+            Your resume goes through a simple machine-learning pipeline.
+        </p>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-icon">
+                    01
+                </div>
+
+                <h3>Extract</h3>
+
+                <p>
+                    Resume text is extracted from PDF or DOCX files.
+                </p>
+
+            </div>
+
+
+
+            <div class="step">
+
+                <div class="step-icon">
+                    02
+                </div>
+
+                <h3>Identify Skills</h3>
+
+                <p>
+                    Technical skills are detected using a configurable
+                    skill dictionary and aliases.
+                </p>
+
+            </div>
+
+
+
+            <div class="step">
+
+                <div class="step-icon">
+                    03
+                </div>
+
+                <h3>Compare</h3>
+
+                <p>
+                    Resume skills are compared with the required
+                    skills in the job description.
+                </p>
+
+            </div>
+
+
+
+            <div class="step">
+
+                <div class="step-icon">
+                    04
+                </div>
+
+                <h3>Recommend</h3>
+
+                <p>
+                    Missing skills are converted into learning
+                    recommendations.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TECHNOLOGY -->
+    <section class="technology">
+
+        <h2>Technology Used</h2>
+
+        <div class="technology-list">
+
+            <span>Python</span>
+            <span>Flask</span>
+            <span>Scikit-learn</span>
+            <span>TF-IDF</span>
+            <span>Cosine Similarity</span>
+            <span>NLP</span>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
