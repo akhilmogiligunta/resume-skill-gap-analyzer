@@ -1,331 +1,394 @@
 {
     "skills": {
         "python": {
-    "display_name": "Python",
-    "category": "Programming",
-    "aliases": [
-        "python",
-        "py",
-        "p ython"
-    ]
-},
-    "angular": {
-    "display_name": "Angular",
-    "aliases": [
-        "angular",
-        "angularjs"
-    ],
-    "category": "Web Development"
-},
+            "display_name": "Python",
+            "category": "Programming",
+            "aliases": [
+                "python",
+                "py",
+                "p ython",
+                "python programming"
+            ]
+        },
 
-"express": {
-    "display_name": "Express",
-    "aliases": [
-        "express",
-        "express.js",
-        "expressjs"
-    ],
-    "category": "Web Development"
-},
-
-"nextjs": {
-    "display_name": "Next.js",
-    "aliases": [
-        "next.js",
-        "nextjs",
-        "next js"
-    ],
-    "category": "Web Development"
-},
-
-"tailwind": {
-    "display_name": "Tailwind CSS",
-    "aliases": [
-        "tailwind",
-        "tailwind css"
-    ],
-    "category": "Web Development"
-},
-
-"redis": {
-    "display_name": "Redis",
-    "aliases": [
-        "redis"
-    ],
-    "category": "Database"
-},
-
-"pandas": {
-    "display_name": "Pandas",
-    "aliases": [
-        "pandas"
-    ],
-    "category": "Data Science"
-},
-
-"numpy": {
-    "display_name": "NumPy",
-    "aliases": [
-        "numpy"
-    ],
-    "category": "Data Science"
-},
-
-"matplotlib": {
-    "display_name": "Matplotlib",
-    "aliases": [
-        "matplotlib"
-    ],
-    "category": "Data Science"
-},
-
-"opencv": {
-    "display_name": "OpenCV",
-    "aliases": [
-        "opencv",
-        "open cv"
-    ],
-    "category": "Computer Vision"
-},
-
-"powerbi": {
-    "display_name": "Power BI",
-    "aliases": [
-        "power bi",
-        "powerbi"
-    ],
-    "category": "Data Science"
-},
-
-"google_cloud": {
-    "display_name": "Google Cloud",
-    "aliases": [
-        "google cloud",
-        "gcp",
-        "google cloud platform"
-    ],
-    "category": "Cloud"
-    },
         "java": {
             "display_name": "Java",
+            "category": "Programming",
             "aliases": [
                 "java",
                 "java programming"
-            ],
-            "category": "Programming"
+            ]
         },
+
         "c": {
-    "display_name": "C",
-    "aliases": ["c programming"],
-    "category": "Programming"
-},
+            "display_name": "C",
+            "category": "Programming",
+            "aliases": [
+                "c programming",
+                "c language"
+            ]
+        },
+
         "cpp": {
             "display_name": "C++",
+            "category": "Programming",
             "aliases": [
                 "c++",
-                "cpp"
-            ],
-            "category": "Programming"
+                "cpp",
+                "c plus plus"
+            ]
         },
+
         "csharp": {
             "display_name": "C#",
+            "category": "Programming",
             "aliases": [
                 "c#",
-                "c sharp"
-            ],
-            "category": "Programming"
+                "c sharp",
+                "c-sharp"
+            ]
         },
+
         "javascript": {
             "display_name": "JavaScript",
+            "category": "Programming",
             "aliases": [
                 "javascript",
                 "java script",
                 "js"
-            ],
-            "category": "Programming"
+            ]
         },
+
         "typescript": {
             "display_name": "TypeScript",
+            "category": "Programming",
             "aliases": [
                 "typescript",
+                "type script",
                 "ts"
-            ],
-            "category": "Programming"
+            ]
         },
+
         "html": {
             "display_name": "HTML",
+            "category": "Web Development",
             "aliases": [
                 "html",
-                "html5"
-            ],
-            "category": "Web Development"
+                "html5",
+                "hypertext markup language"
+            ]
         },
+
         "css": {
             "display_name": "CSS",
+            "category": "Web Development",
             "aliases": [
                 "css",
-                "css3"
-            ],
-            "category": "Web Development"
+                "css3",
+                "cascading style sheets"
+            ]
         },
+
         "react": {
             "display_name": "React",
+            "category": "Web Development",
             "aliases": [
                 "react",
                 "react.js",
-                "reactjs"
-            ],
-            "category": "Web Development"
+                "reactjs",
+                "react js"
+            ]
         },
+
+        "angular": {
+            "display_name": "Angular",
+            "category": "Web Development",
+            "aliases": [
+                "angular",
+                "angularjs",
+                "angular js"
+            ]
+        },
+
         "nodejs": {
             "display_name": "Node.js",
+            "category": "Web Development",
             "aliases": [
                 "node.js",
                 "nodejs",
                 "node js"
-            ],
-            "category": "Web Development"
+            ]
         },
+
+        "express": {
+            "display_name": "Express",
+            "category": "Web Development",
+            "aliases": [
+                "express",
+                "express.js",
+                "expressjs",
+                "express js"
+            ]
+        },
+
+        "nextjs": {
+            "display_name": "Next.js",
+            "category": "Web Development",
+            "aliases": [
+                "next.js",
+                "nextjs",
+                "next js"
+            ]
+        },
+
         "flask": {
             "display_name": "Flask",
+            "category": "Web Development",
             "aliases": [
-                "flask"
-            ],
-            "category": "Web Development"
+                "flask",
+                "flask python"
+            ]
         },
+
         "django": {
             "display_name": "Django",
+            "category": "Web Development",
             "aliases": [
-                "django"
-            ],
-            "category": "Web Development"
+                "django",
+                "django python"
+            ]
         },
+
+        "tailwind": {
+            "display_name": "Tailwind CSS",
+            "category": "Web Development",
+            "aliases": [
+                "tailwind",
+                "tailwind css",
+                "tailwindcss",
+                "tailwind css framework"
+            ]
+        },
+
         "sql": {
             "display_name": "SQL",
+            "category": "Database",
             "aliases": [
                 "sql",
                 "structured query language"
-            ],
-            "category": "Database"
+            ]
         },
+
         "mysql": {
             "display_name": "MySQL",
+            "category": "Database",
             "aliases": [
-                "mysql"
-            ],
-            "category": "Database"
+                "mysql",
+                "my sql"
+            ]
         },
+
         "postgresql": {
             "display_name": "PostgreSQL",
+            "category": "Database",
             "aliases": [
                 "postgresql",
-                "postgres"
-            ],
-            "category": "Database"
+                "postgres",
+                "postgre",
+                "postgre sql"
+            ]
         },
+
         "mongodb": {
             "display_name": "MongoDB",
+            "category": "Database",
             "aliases": [
                 "mongodb",
-                "mongo db"
-            ],
-            "category": "Database"
+                "mongo db",
+                "mongo"
+            ]
         },
+
+        "redis": {
+            "display_name": "Redis",
+            "category": "Database",
+            "aliases": [
+                "redis"
+            ]
+        },
+
         "git": {
             "display_name": "Git",
+            "category": "Tools",
             "aliases": [
                 "git",
-                "git scm"
-            ],
-            "category": "Tools"
+                "git scm",
+                "git version control"
+            ]
         },
+
         "github": {
             "display_name": "GitHub",
+            "category": "Tools",
             "aliases": [
                 "github",
                 "git hub"
-            ],
-            "category": "Tools"
+            ]
         },
+
         "docker": {
             "display_name": "Docker",
+            "category": "DevOps",
             "aliases": [
                 "docker",
-                "docker containers"
-            ],
-            "category": "DevOps"
+                "docker containers",
+                "docker container"
+            ]
         },
+
         "kubernetes": {
             "display_name": "Kubernetes",
+            "category": "DevOps",
             "aliases": [
                 "kubernetes",
                 "k8s"
-            ],
-            "category": "DevOps"
+            ]
         },
+
         "aws": {
             "display_name": "AWS",
+            "category": "Cloud",
             "aliases": [
                 "aws",
-                "amazon web services"
-            ],
-            "category": "Cloud"
+                "amazon web services",
+                "amazon aws"
+            ]
         },
+
         "azure": {
             "display_name": "Azure",
+            "category": "Cloud",
             "aliases": [
                 "azure",
                 "microsoft azure"
-            ],
-            "category": "Cloud"
+            ]
         },
+
+        "google_cloud": {
+            "display_name": "Google Cloud",
+            "category": "Cloud",
+            "aliases": [
+                "google cloud",
+                "gcp",
+                "google cloud platform",
+                "google cloud services"
+            ]
+        },
+
         "machine_learning": {
             "display_name": "Machine Learning",
+            "category": "AI/ML",
             "aliases": [
                 "machine learning",
+                "machine-learning",
                 "ml"
-            ],
-            "category": "AI/ML"
+            ]
         },
+
         "deep_learning": {
             "display_name": "Deep Learning",
+            "category": "AI/ML",
             "aliases": [
                 "deep learning",
+                "deep-learning",
                 "dl"
-            ],
-            "category": "AI/ML"
+            ]
         },
+
         "nlp": {
             "display_name": "NLP",
+            "category": "AI/ML",
             "aliases": [
                 "nlp",
-                "natural language processing"
-            ],
-            "category": "AI/ML"
+                "natural language processing",
+                "natural-language processing"
+            ]
         },
+
         "tensorflow": {
             "display_name": "TensorFlow",
+            "category": "AI/ML",
             "aliases": [
-                "tensorflow"
-            ],
-            "category": "AI/ML"
+                "tensorflow",
+                "tensor flow"
+            ]
         },
+
         "pytorch": {
             "display_name": "PyTorch",
+            "category": "AI/ML",
             "aliases": [
                 "pytorch",
+                "py torch",
                 "torch"
-            ],
-            "category": "AI/ML"
+            ]
         },
+
         "scikit_learn": {
             "display_name": "Scikit-learn",
+            "category": "AI/ML",
             "aliases": [
                 "scikit-learn",
                 "scikit learn",
-                "sklearn"
-            ],
-            "category": "AI/ML"
+                "sklearn",
+                "scikit"
+            ]
+        },
+
+        "pandas": {
+            "display_name": "Pandas",
+            "category": "Data Science",
+            "aliases": [
+                "pandas"
+            ]
+        },
+
+        "numpy": {
+            "display_name": "NumPy",
+            "category": "Data Science",
+            "aliases": [
+                "numpy",
+                "num py"
+            ]
+        },
+
+        "matplotlib": {
+            "display_name": "Matplotlib",
+            "category": "Data Science",
+            "aliases": [
+                "matplotlib",
+                "mat plot lib"
+            ]
+        },
+
+        "opencv": {
+            "display_name": "OpenCV",
+            "category": "Computer Vision",
+            "aliases": [
+                "opencv",
+                "open cv",
+                "open-cv"
+            ]
+        },
+
+        "powerbi": {
+            "display_name": "Power BI",
+            "category": "Data Science",
+            "aliases": [
+                "power bi",
+                "powerbi",
+                "power-bi"
+            ]
         }
     }
 }

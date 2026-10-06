@@ -18,9 +18,19 @@
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css') }}"
     >
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+    
+    <div id="pageTransition" class="page-transition hidden">
+    <div class="page-transition-content">
+        <div class="page-transition-spinner"></div>
+        <div class="page-transition-text">
+            Opening analyzer...
+        </div>
+    </div>
+</div>
 
     <!-- Navigation -->
     <header class="navbar">
@@ -169,7 +179,54 @@
 
                 </div>
 
+                                <!-- SKILL GAP OVERVIEW -->
+                <section class="skill-overview-section">
 
+                    <div class="section-heading">
+                        <span>SKILL GAP OVERVIEW</span>
+                        <h2>Resume Skill Distribution</h2>
+                        <p>
+                            A visual summary of the skills identified during the analysis.
+                        </p>
+                    </div>
+
+                    <div class="skill-overview-card">
+
+                        <div class="chart-container">
+                            <canvas id="skillGapChart"></canvas>
+                        </div>
+
+                        <div class="skill-overview-details">
+
+                            <div class="overview-item matched-overview">
+                                <div class="overview-indicator"></div>
+                                <div>
+                                    <strong>Matched Skills</strong>
+                                    <span>{{ results.matched_skills|length }}</span>
+                                </div>
+                            </div>
+
+                            <div class="overview-item missing-overview">
+                                <div class="overview-indicator"></div>
+                                <div>
+                                    <strong>Missing Skills</strong>
+                                    <span>{{ results.missing_skills|length }}</span>
+                                </div>
+                            </div>
+
+                            <div class="overview-item additional-overview">
+                                <div class="overview-indicator"></div>
+                                <div>
+                                    <strong>Additional Skills</strong>
+                                    <span>{{ results.additional_skills|length }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
                 <!-- INTERPRETATION -->
                 <section class="interpretation-card">
 
@@ -456,17 +513,49 @@
                 <!-- ACTION -->
                 <div class="results-action">
 
-                    <a href="/" class="analyze-button">
-                        <span class="button-icon">↗</span>
-                        Analyze Another Resume
-                    </a>
+    <div class="report-actions">
 
-                    <p>
-                        Upload another resume or compare this resume with
-                        a different job description.
-                    </p>
+    <form
+        action="{{ url_for('download_report') }}"
+        method="POST"
+    >
 
-                </div>
+        <textarea
+            name="resume_text"
+            hidden
+        >{{ results.resume_text }}</textarea>
+
+        <textarea
+            name="job_description"
+            hidden
+        >{{ results.job_description }}</textarea>
+
+        <button
+            type="submit"
+            class="analyze-button"
+        >
+            <span class="button-icon">📄</span>
+            Download PDF Report
+        </button>
+
+    </form>
+
+
+    <a
+        href="/"
+        class="analyze-button"
+    >
+        <span class="button-icon">↗</span>
+        Analyze Another Resume
+    </a>
+
+</div>
+
+    <p>
+        Upload another resume or compare this resume with a different job description.
+    </p>
+
+</div>
 
             </div>
 
@@ -500,6 +589,12 @@
 
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+    <script>
+    const skillGapData = {
+        matched: {{ results.matched_skills|length }},
+        missing: {{ results.missing_skills|length }},
+        additional: {{ results.additional_skills|length }}
+    };
+</script>
 </body>
 </html>
